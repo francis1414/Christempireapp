@@ -21,6 +21,26 @@
     <ul id="roomList"></ul>
   </div>
 
+  <div class="admin-dashboard">
+  <header style="background: purple; color: white; padding: 10px;">
+    <h2>Christ Empire Conference Admin</h2>
+    <button id="logoutBtn" style="float: right; background: red; color: white;">Logout</button>
+  </header>
+
+  <main style="padding: 20px;">
+    <form id="createRoomForm">
+      <input type="text" id="roomName" placeholder="Room Name" required>
+      <button type="submit">Create New Meeting Room</button>
+    </form>
+
+    <div class="room-list">
+      <h3>Available Rooms (last 24hrs)</h3>
+      <ul id="roomList"></ul>
+    </div>
+  </main>
+</div>
+
+
   <script src="admin.js"></script>
 </body>
 </html>
