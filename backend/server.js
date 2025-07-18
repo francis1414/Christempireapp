@@ -16,13 +16,23 @@ app.get('/', (req, res) => {
 
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
+
+  // Admin login
   if (email === 'admin@church.com' && password === 'admin123') {
     const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET);
-    res.json({ token });
-  } else {
-    res.status(401).json({ message: 'Invalid credentials' });
+    return res.json({ token });
   }
+
+  // Member login
+  if (email === 'member@church.com' && password === 'member123') {
+    const token = jwt.sign({ role: 'member' }, process.env.JWT_SECRET);
+    return res.json({ token });
+  }
+
+  // Invalid
+  return res.status(401).json({ message: 'Invalid credentials' });
 });
+
 
 app.post('/api/create-room', async (req, res) => {
   const auth = req.headers.authorization;
