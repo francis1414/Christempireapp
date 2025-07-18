@@ -4,115 +4,147 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Christ Empire Conference</title>
-
-  <!-- Favicon and Manifest -->
-  <link rel="icon" type="image/png" href="https://christempiregh.com/assets/images/logo-2.png" />
-  <link rel="manifest" href="/desktop/assets/manifest.json" />
-  <meta name="theme-color" content="#0099ff" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" href="https://christempiregh.com/assets/images/logo-2.png" />
-
+  <link rel="icon" href="https://christempiregh.com/assets/images/logo-2.png" />
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #001F3F, #003366);
+      background: linear-gradient(to bottom right, #000000, #1a1a1a);
       color: white;
       text-align: center;
-      overflow: hidden;
     }
 
     header {
-      padding: 20px 0;
+      padding: 20px;
     }
 
     header img {
-      height: 100px;
+      width: 120px;
     }
 
     h1 {
-      font-size: 3em;
-      margin: 0.5em 0;
+      font-size: 3rem;
+      margin: 0;
     }
 
-    .btn-container {
-      margin: 40px 0;
+    p {
+      font-size: 1.2rem;
+    }
+
+    .btn-group {
+      margin-top: 30px;
     }
 
     .btn {
-      padding: 15px 30px;
+      padding: 12px 24px;
       margin: 10px;
-      font-size: 1.2em;
-      background-color: #ff6600;
-      color: white;
+      font-size: 1rem;
       border: none;
       border-radius: 8px;
+      background-color: #0099ff;
+      color: white;
       cursor: pointer;
       transition: background 0.3s ease;
     }
 
     .btn:hover {
-      background-color: #cc5200;
+      background-color: #007acc;
+    }
+
+    .countdown {
+      margin-top: 40px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+
+    section {
+      margin: 40px auto;
+      max-width: 700px;
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 10px;
     }
 
     footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      font-size: 0.9em;
-      color: #ccc;
+      background: #111;
+      padding: 15px;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #aaa;
     }
 
-    #countdown {
-      font-size: 2em;
-      margin-top: 20px;
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
   <audio autoplay loop>
-    <source src="https://example.com/path-to-your-background-music.mp3" type="audio/mp3">
+    <source src="/desktop/assets/audio.mp3" type="audio/mp3" />
     Your browser does not support the audio element.
   </audio>
 
   <header>
-    <img src="https://christempiregh.com/assets/images/logo-2.png" alt="Church Logo">
-    <h1>Christ Empire Conference</h1>
-    <div id="countdown"></div>
+    <img src="https://christempiregh.com/assets/images/logo-2.png" alt="Christ Empire Logo" />
   </header>
 
-  <div class="btn-container">
-    <a href="admin-login.html"><button class="btn">Admin Login</button></a>
-    <a href="member-login.html"><button class="btn">Member Login</button></a>
-  </div>
+  <main id="home">
+    <h1>Christ Empire Conference</h1>
+    <p>Join us for an unforgettable divine experience.</p>
+
+    <section>
+      <h2>Upcoming Event</h2>
+      <p><strong>Easter Convention 2025!</strong> A life-transforming event this April.</p>
+
+      <h3>Weekly Schedule</h3>
+      <ul style="list-style: none; padding: 0; text-align: left; margin-left: 35%;">
+        <li>• Morning Glory (Online) – Mon–Sat, 4 AM</li>
+        <li>• Prayer & All‑Night Service – Fridays</li>
+        <li>• Evangelism – Saturday, 4 PM</li>
+        <li>• Divine Service – Sunday, 7 AM–11 AM</li>
+      </ul>
+
+      <h3>Contact Us</h3>
+      <p>📞 +233256076233 | ✉️ info@christempiregh.com</p>
+    </section>
+
+    <div class="btn-group">
+      <a href="/admin.html"><button class="btn">Admin Login</button></a>
+      <a href="/member.html"><button class="btn">Member Login</button></a>
+    </div>
+
+    <div class="countdown" id="countdown">Event Countdown: Loading...</div>
+  </main>
 
   <footer>
-    &copy; 2025 Christ Empire Church. All Rights Reserved – Developed by WinnyGlo Technologies
+    All Rights Reserved – Developed by WinnyGlo Technologies - +233542437497
   </footer>
 
   <script>
-    // Countdown timer to a specific date (adjust as needed)
-    const eventDate = new Date("2025-08-31T10:00:00").getTime();
-
     const countdownEl = document.getElementById("countdown");
-    setInterval(() => {
-      const now = new Date().getTime();
+    const eventDate = new Date("2025-04-18T09:00:00"); // Easter Convention
+
+    function updateCountdown() {
+      const now = new Date();
       const diff = eventDate - now;
 
       if (diff <= 0) {
-        countdownEl.innerText = "Event has started!";
+        countdownEl.innerHTML = "Event has started!";
         return;
       }
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      countdownEl.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
+      countdownEl.innerHTML =
+        `Event Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
