@@ -1,6 +1,6 @@
 document.getElementById('createRoomBtn').addEventListener('click', async function () {
   const token = localStorage.getItem('token');
-  const res = await fetch('https://your-backend-url.onrender.com/api/create-room', {
+  const res = await fetch('https://backend-cca7.onrender.com/api/create-room', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
