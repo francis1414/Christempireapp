@@ -3,24 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard - Christ Empire</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css" />
 </head>
 <body>
-  <div class="admin-dashboard">
-    <h2>Welcome, Admin</h2>
-
-    <button id="createRoomBtn">Create New Meeting Room</button>
-
-    <div class="room-list">
-      <h3>Active Rooms</h3>
-      <ul id="roomList"></ul>
-    </div>
-
+  <header>
+    <h1>Christ Empire Admin Dashboard</h1>
     <button id="logoutBtn">Logout</button>
-  </div>
+  </header>
 
-  <script src="admin.js"></script>
+  <main>
+    <section>
+      <h2>Create a Room</h2>
+      <form id="createRoomForm">
+        <input type="text" id="roomName" placeholder="Enter Room Name" required />
+        <button type="submit">Create Room</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Available Rooms</h2>
+      <ul id="roomList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>All Rights Reserved – Developed by WinnyGlo Technologies</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("createRoomForm");
+    const roomList = document.getElementById("roomList");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    let rooms = JSON.parse(localStorage.getItem("adminRooms") || "[]");
+
+    // Auto-load rooms (24hr check)
+    const now = Date.now();
+    rooms = rooms.filter(r => now - r.timestamp < 86400000); // 24hrs
+    rooms.forEach(room => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${room.url}" target="_blank">${room.name}</a>`;
+      roomList.appendChild(li);
+    });
+
+    // Save to localStorage
+    function saveRoomLocally(name, url) {
+      rooms.push({ name, url, timestamp: Date.now() });
+      localStorage.setItem("adminRooms", JSON.stringify(rooms));
+    }
+
+    // Submit handler
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const roomName = document.getElementById("roomName").value;
+
+      try {
+        const res = await fetch("https://backend-cca7.onrender.com/api/create-room", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: roomName })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="${data.url}" target="_blank">${roomName}</a>`;
+          roomList.appendChild(li);
+          saveRoomLocally(roomName, data.url);
+          alert("Room created!");
+        } else {
+          alert(data.message || "Error creating room");
+        }
+      } catch (err) {
+        alert("Failed to create room.");
+        console.error(err);
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    });
+  </script>
 </body>
-
 </html>
