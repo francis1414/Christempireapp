@@ -2,20 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Christ Empire Conference App - Admin Login</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christ Empire Conference</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0b1d4d, #142e6e);
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    img.logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    p {
+      font-size: 1.2rem;
+      margin: 10px 0 30px;
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .buttons a {
+      background: #ffc107;
+      color: #0b1d4d;
+      padding: 12px 24px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+    .buttons a:hover {
+      background: #e0a800;
+    }
+    .countdown {
+      font-size: 1.5rem;
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .buttons a {
+        padding: 10px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Christ Empire Conference App</h1>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Admin Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-    <p id="errorMsg"></p>
+  <img src="/mnt/data/0bcd8361-e91d-48e1-ac7b-603752fd3e2d-converted.png" alt="Christ Empire Logo" class="logo" />
+  <h1>Welcome to Christ Empire Conference</h1>
+  <p>Bringing the word of God to you — Anytime, Anywhere</p>
+  <div class="buttons">
+    <a href="admin.html">Admin Login</a>
+    <a href="member.html">Member Login</a>
   </div>
-  <script src="login.js"></script>
+
+  <div class="countdown" id="countdown"></div>
+
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const countdown = document.getElementById("countdown");
+    const eventDate = new Date("2025-12-25T10:00:00Z").getTime(); // Example date
+
+    const timer = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        countdown.innerHTML = "Conference Live Now!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `Next Conference In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  </script>
 </body>
 </html>
