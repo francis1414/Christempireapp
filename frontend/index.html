@@ -2,102 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Christ Empire Conference</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" />
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0b1d4d, #142e6e);
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #001f3f, #0074D9);
       color: white;
-      text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
     }
-    img.logo {
-      width: 120px;
-      margin-bottom: 20px;
+
+    .logo {
+      margin-top: 30px;
     }
+
+    .logo img {
+      width: 180px;
+    }
+
     h1 {
-      font-size: 3rem;
-      margin: 0;
+      margin: 20px 0 10px;
+      font-size: 2.5rem;
     }
+
     p {
-      font-size: 1.2rem;
-      margin: 10px 0 30px;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
     }
-    .buttons {
+
+    .btn-group {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      justify-content: center;
     }
-    .buttons a {
-      background: #ffc107;
-      color: #0b1d4d;
-      padding: 12px 24px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.3s ease;
+
+    .btn {
+      background-color: #FFD700;
+      color: #000;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .buttons a:hover {
-      background: #e0a800;
+
+    .btn:hover {
+      background-color: #FFC107;
     }
+
     .countdown {
-      font-size: 1.5rem;
-      margin-top: 40px;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .buttons a {
-        padding: 10px 16px;
-      }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.9rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <img src="/mnt/data/0bcd8361-e91d-48e1-ac7b-603752fd3e2d-converted.png" alt="Christ Empire Logo" class="logo" />
-  <h1>Welcome to Christ Empire Conference</h1>
-  <p>Bringing the word of God to you — Anytime, Anywhere</p>
-  <div class="buttons">
-    <a href="admin.html">Admin Login</a>
-    <a href="member.html">Member Login</a>
+
+  <div class="logo">
+    <img src="/desktop/assets/logo.png" alt="Christ Empire Logo" />
   </div>
 
-  <div class="countdown" id="countdown"></div>
+  <h1>Christ Empire Conference</h1>
+  <p>Welcome! Join us for a divine experience of connection and inspiration.</p>
+
+  <div class="btn-group">
+    <a href="/admin.html"><button class="btn">Admin Login</button></a>
+    <a href="/member.html"><button class="btn">Member Login</button></a>
+  </div>
+
+  <div class="countdown" id="countdown">Event Countdown: Loading...</div>
 
   <audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
+    <source src="/desktop/assets/audio.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
 
+  <footer>All Rights Reserved – Developed by WinnyGlo Technologies</footer>
+
   <script>
+    const eventDate = new Date("2025-08-01T10:00:00Z"); // Adjust to your event date/time
     const countdown = document.getElementById("countdown");
-    const eventDate = new Date("2025-12-25T10:00:00Z").getTime(); // Example date
 
-    const timer = setInterval(function () {
-      const now = new Date().getTime();
-      const distance = eventDate - now;
+    function updateCountdown() {
+      const now = new Date();
+      const diff = eventDate - now;
 
-      if (distance < 0) {
-        clearInterval(timer);
-        countdown.innerHTML = "Conference Live Now!";
+      if (diff <= 0) {
+        countdown.textContent = "The event is happening now!";
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
 
-      countdown.innerHTML = `Next Conference In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
+      countdown.textContent = `Event Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
+
 </body>
 </html>
