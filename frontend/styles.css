@@ -63,3 +63,45 @@ button:hover {
   list-style: none;
   padding: 0;
 }
+.member-dashboard {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f0f0f5;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.member-dashboard h2 {
+  color: #6a0dad;
+  text-align: center;
+}
+
+.member-dashboard .room-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.member-dashboard .room-list ul li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  border-left: 4px solid #6a0dad;
+  border-radius: 5px;
+}
+
+.member-dashboard .room-list a {
+  color: #6a0dad;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.member-dashboard button {
+  background-color: #6a0dad;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
