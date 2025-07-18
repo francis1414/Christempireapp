@@ -8,15 +8,21 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     const roomName = document.getElementById("roomName").value;
+    const token = localStorage.getItem("token"); // ✅ get JWT token
 
     try {
       const res = await fetch("https://backend-cca7.onrender.com/api/create-room", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + token // ✅ send token to backend
         },
         body: JSON.stringify({ name: roomName }),
       });
+
+      if (!res.ok) {
+        throw new Error("Room creation failed");
+      }
 
       const data = await res.json();
 
