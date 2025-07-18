@@ -6,7 +6,7 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 });
 
 async function loadRooms() {
-  const res = await fetch('https://your-backend-url.onrender.com/rooms', {
+  const res = await fetch('https://backend-cca7.onrender.com/rooms', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
