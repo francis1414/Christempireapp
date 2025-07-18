@@ -1,32 +1,37 @@
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('loginForm');
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const role = document.getElementById("role").value;
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-  try {
-    const res = await fetch("fetch('https://backend-cca7.onrender.com/api/login', {
-", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, role }),
-    });
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-    const data = await res.json();
+      try {
+        const response = await fetch('https://backend-cca7.onrender.com/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
 
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      if (role === "admin") {
-        window.location.href = "admin.html";
-      } else {
-        window.location.href = "member.html";
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem('token', data.token);
+          // Redirect based on role
+          if (email === 'admin@church.com') {
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'member.html';
+          }
+        } else {
+          alert(data.message || 'Login failed');
+        }
+      } catch (err) {
+        alert('An error occurred. Try again.');
+        console.error('Login error', err);
       }
-    } else {
-      alert(data.message || "Login failed");
-    }
-  } catch (err) {
-    console.error("Login error", err);
-    alert("An error occurred. Try again.");
+    });
   }
 });
