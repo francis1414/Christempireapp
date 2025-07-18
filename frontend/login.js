@@ -6,7 +6,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const role = document.getElementById("role").value;
 
   try {
-    const res = await fetch("https://backend-cca7.onrender.com/api/auth/login", {
+    const res = await fetch("fetch('https://backend-cca7.onrender.com/api/login', {
+", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, role }),
