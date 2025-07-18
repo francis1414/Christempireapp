@@ -1,46 +1,45 @@
-const token = localStorage.getItem('token');
-
-// Create Room
-document.getElementById('createRoomBtn').addEventListener('click', async () => {
-  const response = await fetch('https://backend-cca7.onrender.com/create-room', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  });
-
-  const data = await response.json();
-  if (data.url) {
-    alert(`Meeting Room Created: ${data.url}`);
-    loadRooms(); // Reload the room list
-  } else {
-    alert('Error creating room');
-  }
-});
-
-// Logout
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  localStorage.removeItem('token');
-  window.location.href = 'login.html';
-});
-
-// Load Room List
-async function loadRooms() {
-  const res = await fetch('https://backend-cca7.onrender.com/rooms', {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  });
-  const rooms = await res.json();
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  const emailDisplay = document.getElementById('adminEmail');
+  const form = document.getElementById('createRoomForm');
   const roomList = document.getElementById('roomList');
-  roomList.innerHTML = '';
 
-  rooms.forEach(room => {
-    const li = document.createElement('li');
-    li.textContent = room.name;
-    roomList.appendChild(li);
+  if (!token) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const userEmail = localStorage.getItem('email');
+  if (userEmail) {
+    emailDisplay.textContent = `Welcome, ${userEmail}`;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const roomName = document.getElementById('roomName').value;
+
+    try {
+      const res = await fetch('https://backend-cca7.onrender.com/api/rooms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name: roomName })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${data.url}" target="_blank">${data.name}</a>`;
+        roomList.appendChild(li);
+        form.reset();
+      } else {
+        alert(data.message || 'Failed to create room');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error creating room');
+    }
   });
-}
-
-// Call on load
-loadRooms();
+});
