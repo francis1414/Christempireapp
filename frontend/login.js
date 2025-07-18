@@ -2,7 +2,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
   e.preventDefault();
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const res = await fetch('https://your-backend-url.onrender.com/api/login', {
+  const res = await fetch('https://backend-cca7.onrender.com/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
