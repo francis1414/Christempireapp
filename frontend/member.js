@@ -1,21 +1,30 @@
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
+  const logoutBtn = document.getElementById("logoutBtn");
   const roomList = document.getElementById("roomList");
 
-  try {
-    const res = await fetch("https://backend-cca7.onrender.com/api/rooms");
-    const data = await res.json();
+  // Load rooms from localStorage (saved by admin)
+  const savedRooms = JSON.parse(localStorage.getItem("createdRooms")) || [];
+  const now = Date.now();
 
-    if (Array.isArray(data.rooms)) {
-      data.rooms.forEach((room) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${room.url}" target="_blank">${room.name}</a>`;
-        roomList.appendChild(li);
-      });
-    } else {
-      roomList.innerHTML = "<li>No rooms available.</li>";
-    }
-  } catch (error) {
-    console.error("Error loading rooms", error);
-    roomList.innerHTML = "<li>Error loading rooms.</li>";
+  // Filter rooms created within the last 24 hours
+  const validRooms = savedRooms.filter(room => now - room.timestamp < 86400000); // 24hrs
+
+  // Render the rooms
+  validRooms.forEach(room => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="${room.url}" target="_blank" style="color: purple;">${room.name}</a>`;
+    roomList.appendChild(li);
+  });
+
+  // Logout
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  });
+
+  // Auto-redirect if not logged in
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "login.html";
   }
 });
