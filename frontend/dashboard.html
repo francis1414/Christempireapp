@@ -7,11 +7,20 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h2>Welcome Admin</h2>
-    <button id="createRoomBtn">Create Meeting Room</button>
-    <div id="roomLink"></div>
+  <div class="admin-dashboard">
+    <h2>Welcome, Admin</h2>
+
+    <button id="createRoomBtn">Create New Meeting Room</button>
+
+    <div class="room-list">
+      <h3>Active Rooms</h3>
+      <ul id="roomList"></ul>
+    </div>
+
+    <button id="logoutBtn">Logout</button>
   </div>
-  <script src="dashboard.js"></script>
+
+  <script src="admin.js"></script>
 </body>
+
 </html>
