@@ -2,7 +2,7 @@ const token = localStorage.getItem('token');
 
 // Create Room
 document.getElementById('createRoomBtn').addEventListener('click', async () => {
-  const response = await fetch('https://your-backend-url.onrender.com/create-room', {
+  const response = await fetch('https://backend-cca7.onrender.com/create-room', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -26,7 +26,7 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 
 // Load Room List
 async function loadRooms() {
-  const res = await fetch('https://your-backend-url.onrender.com/rooms', {
+  const res = await fetch('https://backend-cca7.onrender.com/rooms', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
