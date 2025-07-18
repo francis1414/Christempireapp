@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const roomName = document.getElementById("roomName").value;
 
     try {
-      const res = await fetch("https://backend-cca7.onrender.com/api/create-rooms", {
+      const res = await fetch("https://backend-cca7.onrender.com/api/create-room", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
