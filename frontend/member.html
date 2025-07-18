@@ -1,13 +1,14 @@
 <body>
-  <div class="member-dashboard">
-    <h2>Welcome, Member</h2>
+  <div class="member-dashboard" style="font-family: Arial, sans-serif;">
+    <header style="background: purple; color: white; padding: 15px;">
+      <h2>Welcome to Christ Empire Conference</h2>
+      <button id="logoutBtn" style="float: right; background: red; color: white;">Logout</button>
+    </header>
 
-    <div class="room-list">
-      <h3>Available Rooms</h3>
-      <ul id="roomList"></ul>
-    </div>
-
-    <button id="logoutBtn">Logout</button>
+    <main style="padding: 20px;">
+      <h3>Available Meeting Rooms</h3>
+      <ul id="roomList" style="list-style: none; padding: 0;"></ul>
+    </main>
   </div>
 
   <script src="member.js"></script>
