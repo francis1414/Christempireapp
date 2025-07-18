@@ -1,31 +1,21 @@
-const token = localStorage.getItem('token');
+document.addEventListener("DOMContentLoaded", async function () {
+  const roomList = document.getElementById("roomList");
 
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  localStorage.removeItem('token');
-  window.location.href = 'login.html';
-});
+  try {
+    const res = await fetch("https://backend-cca7.onrender.com/api/rooms");
+    const data = await res.json();
 
-async function loadRooms() {
-  const res = await fetch('https://backend-cca7.onrender.com/rooms', {
-    headers: {
-      'Authorization': `Bearer ${token}`
+    if (Array.isArray(data.rooms)) {
+      data.rooms.forEach((room) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${room.url}" target="_blank">${room.name}</a>`;
+        roomList.appendChild(li);
+      });
+    } else {
+      roomList.innerHTML = "<li>No rooms available.</li>";
     }
-  });
-
-  const rooms = await res.json();
-  const roomList = document.getElementById('roomList');
-  roomList.innerHTML = '';
-
-  rooms.forEach(room => {
-    const li = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = room.url;
-    link.target = '_blank';
-    link.textContent = room.name || 'Join Meeting';
-    li.appendChild(link);
-    roomList.appendChild(li);
-  });
-}
-
-// Call on load
-loadRooms();
+  } catch (error) {
+    console.error("Error loading rooms", error);
+    roomList.innerHTML = "<li>Error loading rooms.</li>";
+  }
+});
