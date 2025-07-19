@@ -8,13 +8,12 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2e6ff;
+      background-color: #f3f0ff;
       margin: 0;
-      padding: 0;
     }
 
     header {
-      background: purple;
+      background-color: purple;
       color: white;
       padding: 15px;
       display: flex;
@@ -22,26 +21,14 @@
       align-items: center;
     }
 
-    h1, h2 {
-      margin-top: 0;
-    }
-
     main {
       padding: 20px;
     }
 
-    form input {
+    form input, form button {
       padding: 10px;
       margin-right: 10px;
-      width: 250px;
-    }
-
-    form button {
-      padding: 10px 15px;
-      background-color: darkviolet;
-      color: white;
-      border: none;
-      cursor: pointer;
+      margin-bottom: 10px;
     }
 
     ul#roomList {
@@ -50,30 +37,20 @@
     }
 
     ul#roomList li {
-      background-color: white;
-      margin: 10px 0;
+      background: #fff;
       padding: 15px;
+      margin-bottom: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .room-actions button,
-    .room-actions a {
-      margin-right: 10px;
+    .room-actions button, .room-actions a {
+      margin-right: 8px;
       margin-top: 5px;
-    }
-
-    footer {
-      background-color: #ddd;
-      text-align: center;
-      padding: 10px;
-      margin-top: 40px;
-      font-size: 14px;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h2>Christ Empire Admin Dashboard</h2>
     <button id="logoutBtn">Logout</button>
@@ -83,19 +60,13 @@
     <h2>Create a Meeting Room</h2>
     <form id="createRoomForm">
       <input type="text" id="roomName" placeholder="Room Name" required />
-      <input type="text" id="roomUrl" placeholder="Room URL (e.g., https://daily.co/xyz123)" required />
+      <input type="url" id="roomUrl" placeholder="Room URL (e.g. https://daily.co/xyz123)" required />
       <button type="submit">Create Room</button>
     </form>
 
-    <h2>Available Rooms (Last 24 Hours)</h2>
-    <ul id="roomList">
-      <!-- Populated by JS -->
-    </ul>
+    <h2>Available Rooms</h2>
+    <ul id="roomList"></ul>
   </main>
-
-  <footer>
-    &copy; 2025 Christ Empire Conference. All rights reserved - WinnyGlo Technologies.
-  </footer>
 
   <script src="admin.js"></script>
 </body>
