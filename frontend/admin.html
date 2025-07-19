@@ -205,5 +205,74 @@ fetch(`${API_BASE}/api/rooms`, {
       };
     });
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = 'https://backend-cca7.onrender.com/'; // <-- use your actual backend URL
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const form = document.getElementById('createRoomForm');
+    const roomName = document.getElementById('roomName');
+    const roomUrl = document.getElementById('roomUrl');
+    const roomsTable = document.getElementById('roomsTable').querySelector('tbody');
+
+    // Load existing rooms
+    fetch(`${API_BASE}/api/rooms`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      roomsTable.innerHTML = '';
+      data.forEach(room => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${room.name}</td>
+          <td><a href="${room.url}" target="_blank">${room.url}</a></td>
+          <td>${new Date(room.createdAt).toLocaleString()}</td>
+        `;
+        roomsTable.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Failed to load rooms:', error);
+    });
+
+    // Handle form submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      fetch(`${API_BASE}/api/rooms`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: roomName.value,
+          url: roomUrl.value
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert('Room created successfully!');
+        location.reload();
+      })
+      .catch(error => {
+        alert('Failed to create room');
+        console.error('Error creating room:', error);
+      });
+    });
+
+    window.logout = function () {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    };
+  });
+</script>
+
 </body>
 </html>
