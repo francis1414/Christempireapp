@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const API_BASE = 'https://christ-empire-api.onrender.com'; // Replace with your deployed backend URL
+  const API_BASE = 'https://backend-cca7.onrender.com/'; // Replace with your deployed backend URL
   const token = localStorage.getItem('token');
   if (!token) {
     window.location.href = 'index.html';
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Delete room
 function deleteRoom(id) {
-  const API_BASE = 'https://christ-empire-api.onrender.com';
+  const API_BASE = 'https://backend-cca7.onrender.com/';
   if (confirm('Are you sure you want to delete this room?')) {
     fetch(`${API_BASE}/api/rooms/${id}`, {
       method: 'DELETE'
