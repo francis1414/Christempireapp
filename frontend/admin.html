@@ -5,41 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard | Christ Empire</title>
   <link rel="stylesheet" href="admin.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f3eaff; /* light purple background */
+    }
+
+    header {
+      background: #6a1b9a;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h2 {
+      margin: 0;
+    }
+
+    #logoutBtn {
+      background: #e53935;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: #4a148c;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button[type="submit"] {
+      background: #6a1b9a;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .room-list {
+      margin-top: 40px;
+    }
+
+    ul#roomList {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul#roomList li {
+      background: #f8f1ff;
+      margin-bottom: 10px;
+      padding: 12px;
+      border-left: 4px solid #6a1b9a;
+      border-radius: 6px;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding: 20px;
+      background: #ece0f8;
+      color: #6a1b9a;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-  <div class="dashboard">
-    <h1>Christ Empire Admin Dashboard</h1>
-    <p id="adminEmail">Welcome, Admin</p>
 
-    <h2>Create a Meeting</h2>
+  <header>
+    <h2>Christ Empire Conference Admin</h2>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <div class="container">
+    <h1>Welcome, Admin</h1>
+
+    <h2>Create a New Meeting Room</h2>
     <form id="createRoomForm">
-      <input type="text" id="roomName" placeholder="Enter Meeting Name" required />
+      <input type="text" id="roomName" placeholder="Enter Room Name" required />
       <button type="submit">Create Room</button>
     </form>
 
-    <h2>Meeting Rooms</h2>
-    <ul id="roomList"></ul>
-  </div>
-
-  <div class="admin-dashboard">
-  <header style="background: purple; color: white; padding: 10px;">
-    <h2>Christ Empire Conference Admin</h2>
-    <button id="logoutBtn" style="float: right; background: red; color: white;">Logout</button>
-  </header>
-
-  <main style="padding: 20px;">
-    <form id="createRoomForm">
-      <input type="text" id="roomName" placeholder="Room Name" required>
-      <button type="submit">Create New Meeting Room</button>
-    </form>
-
     <div class="room-list">
-      <h3>Available Rooms (last 24hrs)</h3>
+      <h3>Available Rooms (last 24 hrs)</h3>
       <ul id="roomList"></ul>
     </div>
-  </main>
-</div>
+  </div>
 
+  <footer>
+    &copy; 2025 Christ Empire. All rights reserved.
+  </footer>
 
   <script src="admin.js"></script>
 </body>
