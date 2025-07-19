@@ -41,16 +41,16 @@
 </div>
 
 
-  <script src="admin.js"></script>
-<script>
-  const token = localStorage.getItem('token');
+  <script src="admin.js">
+    const token = localStorage.getItem('token');
   const email = localStorage.getItem('email'); // optional, see note below
 
   // Redirect if not admin or not logged in
   if (!token || email !== 'admin@church.com') {
     window.location.href = '/admin/login.html';
   }
-</script>
+  </script>
+  
 
 </body>
 </html>
