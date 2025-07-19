@@ -157,7 +157,9 @@
       const roomsTable = document.getElementById('roomsTable').querySelector('tbody');
 
       // Load existing rooms
-      fetch('/api/rooms', {
+      const API_BASE = 'https://backend-cca7.onrender.com/'; // replace with your backend URL
+fetch(`${API_BASE}/api/rooms`, {
+
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -179,7 +181,7 @@
       // Handle form submit
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        fetch('/api/rooms', {
+        fetch(`${API_BASE}/api/rooms`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
