@@ -42,5 +42,13 @@
 
 
   <script src="admin.js"></script>
+  <script>
+  // Redirect if not logged in
+  const token = localStorage.getItem('adminToken');
+  if (!token) {
+    window.location.href = '/admin/login.html';
+  }
+</script>
+
 </body>
 </html>
